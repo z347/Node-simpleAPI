@@ -1,0 +1,13 @@
+{
+    /* Visit https://www.typescriptlang.org/docs/handbook/compiler-options.html to read more about this file */
+
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES2018",
+        "removeComments": true,
+        "sourceMap": true,
+        "outDir": "build" // Place all compiled files in this folder, according to their nesting in the source
+    },
+    "include": ["src/**/*"]
+}

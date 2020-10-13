@@ -1,0 +1,8 @@
+# Visit https://git-scm.com/docs/gitignore to read more about this file
+
+# woork environment
+/.vscode
+/.idea
+
+# dependencies
+/node_modules
