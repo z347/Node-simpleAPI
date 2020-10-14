@@ -1,0 +1,27 @@
+{
+    // Visit https://eslint.org/docs/user-guide/configuring to read more about this file
+
+    "env": {
+        "es6": true,
+        "es2017": true,
+        "node": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "codeFrame": true,
+        "project": "./tsconfig.json"
+    },
+    "extends": [
+        "airbnb-typescript/base",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+    ],
+    "plugins": ["@typescript-eslint", "prettier"],
+    "rules": {
+        "prettier/prettier": ["error", { "endOfLine": "auto" }],
+        "no-console": 1
+    }
+}
