@@ -4,11 +4,13 @@
     "compileOnSave": true,
     "compilerOptions": {
         "module": "CommonJS",
+        "esModuleInterop": true,
         "target": "ES2018",
         "removeComments": true,
         "sourceMap": true,
         "strict": true,
         "outDir": "build" // Place all compiled files in this folder, according to their nesting in the source
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", ".vscode"]
 }
