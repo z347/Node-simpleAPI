@@ -9,8 +9,9 @@
         "removeComments": true,
         "sourceMap": true,
         "strict": true,
-        "outDir": "build" // Place all compiled files in this folder, according to their nesting in the source
+        "outDir": "build", // Place all compiled files in this folder, according to their nesting in the source
+        "lib": ["esnext"]
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules", ".vscode"]
+    "exclude": ["node_modules", ".vscode", ".idea"]
 }

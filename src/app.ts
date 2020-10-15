@@ -1,13 +1,35 @@
-import express from 'express';
+import express, { Application } from 'express';
 
-const app = express();
+import logger from './helpers/winston-loger';
 
-app.get('/', (req, res) => {
-    res.send('test');
-});
+class App {
+    public app: Application;
+    public port: number;
+    public file: string;
 
-const PORT = process.env.PORT || 4000;
+    constructor(appInit: { port: number; currentFile: string }) {
+        this.app = express();
+        this.port = appInit.port;
+        this.file = appInit.currentFile;
+    }
 
-app.listen(PORT, () => {
-    console.log(`⚡️⚡️⚡️ Server is running in http://localhost:${PORT} ⚡️⚡️⚡️`);
-});
+    public listen() {
+        this.app.listen(this.port, () => {
+            try {
+                console.info(`Server use port: ${this.port}`);
+            } catch (error) {
+                logger.error({
+                    timestamp: '',
+                    level: 'error',
+                    errorIn: 'app.listen',
+                    filePath: this.file,
+                    code: error.code,
+                    message: error.message,
+                    stack: error.stack
+                });
+            }
+        });
+    }
+}
+
+export default App;
