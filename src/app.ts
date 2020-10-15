@@ -13,7 +13,7 @@ class App {
         this.file = appInit.currentFile;
     }
 
-    public listen() {
+    public listen(): void {
         this.app.listen(this.port, () => {
             try {
                 console.info(`Server use port: ${this.port}`);

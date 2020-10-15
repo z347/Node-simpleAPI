@@ -25,7 +25,7 @@
         "@typescript-eslint/indent": 0,
         "@typescript-eslint/comma-dangle": 0,
         "@typescript-eslint/lines-between-class-members": 0,
-        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/no-explicit-any": 2,
         "no-console": 0
     }
 }
