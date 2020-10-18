@@ -1,7 +1,7 @@
 # Visit https://git-scm.com/docs/gitignore to read more about this file
 
 # configuration files
-/src/config/.env.dev
+/src/config/.env.isDev
 
 # woork environment
 /.vscode

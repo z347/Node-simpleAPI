@@ -1,21 +1,26 @@
 import { join } from 'path';
-import dotenv from 'dotenv';
+import dotEnv from 'dotenv';
 
 import App from './app';
+import validateEnv from './utils/env-validations';
 
-// path to the current configuration file
-const configFile = './src/config/.env.dev';
+const configFile = './src/config/.env.isDev'; // path to the dotEnv current configuration file
 
-dotenv.config({ path: configFile });
+dotEnv.config({ path: configFile });
 
-const { SERVER_PORT } = process.env;
-// transformation to number
-const port = Number(SERVER_PORT);
+validateEnv();
+
+const { SERVER_PORT, DB_URL } = process.env;
+
+const port = Number(SERVER_PORT); // transformation to number
+const dbUrl = String(DB_URL); // transformation to string
 const currentFile = join(__dirname);
 
 const app = new App({
     port,
-    currentFile
+    currentFile,
+    dbUrl
 });
 
 app.listen();
+// app.getServerInfo();
