@@ -3,12 +3,21 @@ import { validationResult } from 'express-validator';
 import bCrypt from 'bcryptjs';
 
 import { ClientInterface } from '../models/client';
-import { createNewClient, findOneClientByEmail } from '../db/client-methods';
+import { getAllClientEmails, createNewClient, findOneClientByEmail } from '../db/client-methods';
 
 interface InputsInterface {
     email: ClientInterface['email'];
     password: ClientInterface['password'];
 }
+
+const getAllClientsController = async (req: Request, res: Response) => {
+    try {
+        const allClients = await getAllClientEmails();
+        return res.status(200).json({ message: allClients });
+    } catch (e) {
+        return res.status(500).json({ errors: 'Something went wrong.' });
+    }
+};
 
 const registrationController = async (req: Request, res: Response) => {
     try {
@@ -58,4 +67,4 @@ const loginController = async (req: Request, res: Response) => {
     }
 };
 
-export { registrationController, loginController };
+export { getAllClientsController, registrationController, loginController };

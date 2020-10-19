@@ -1,5 +1,13 @@
 import { ClientModel } from '../models/client';
 
+const getAllClientEmails = async () => {
+    try {
+        return await ClientModel.find({}, { email: 1 });
+    } catch (e) {
+        return console.error(e.message);
+    }
+};
+
 const createNewClient = async (email: string, password: string) => {
     try {
         const user = new ClientModel({ email, password });
@@ -17,4 +25,4 @@ const findOneClientByEmail = async (email: string) => {
     }
 };
 
-export { createNewClient, findOneClientByEmail };
+export { getAllClientEmails, createNewClient, findOneClientByEmail };

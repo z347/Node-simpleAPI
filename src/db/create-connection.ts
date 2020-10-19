@@ -3,7 +3,12 @@ import mongoose from 'mongoose';
 const connect = (URL: string): void => {
     const createConnect = () => {
         mongoose
-            .connect(URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+            .connect(URL, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                useCreateIndex: true,
+                useFindAndModify: false
+            })
             .then((): void => console.info('MongoDB Atlas is connected'))
             .catch((error): void => {
                 console.error(`Connection to MongoDB is rejected: ${error.message}`);

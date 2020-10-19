@@ -8,10 +8,13 @@ import cors from 'cors';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import morgan from 'morgan';
 
-// Local files
+// Additional files
 import logger from './utils/winston-loger';
 import connect from './db/create-connection';
-import router from './routes/auth-clients';
+
+// Routes
+import clientRouters from './routes/client-routs';
+import categoryRouters from './routes/category-routes';
 
 class App {
     public app: Application;
@@ -65,9 +68,9 @@ class App {
         this.app.use(cors());
     }
 
-    // test
     private initializeRoutes() {
-        this.app.use('/api/auth', router);
+        this.app.use('/api/auth', clientRouters);
+        this.app.use('/api', categoryRouters);
     }
 
     private initializeDatabase() {

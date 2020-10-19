@@ -1,10 +1,11 @@
 import { Router } from 'express';
 
 import { registrationValidation, loginValidation } from '../middlewares/auth-validations';
-import { registrationController, loginController } from '../controllers/auth-clients';
+import { getAllClientsController, registrationController, loginController } from '../controllers/client-controllers';
 
 const router = Router();
 
+router.get('/clients', getAllClientsController);
 router.post('/registration', registrationValidation, registrationController);
 router.post('/login', loginValidation, loginController);
 
