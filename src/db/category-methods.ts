@@ -1,14 +1,14 @@
-import { CategoryModel } from '../models/category';
+import { CategoryModel } from '../models/category-model';
 
 const getAllCategories = async () => {
     try {
         return await CategoryModel.find({}, { category: 1 });
     } catch (e) {
-        return console.error(e.message);
+        return e.message;
     }
 };
 
-const creatMainCategories = (array: string[]) => {
+const setMainCategories = (array: string[]) => {
     try {
         return array.forEach((value) => {
             const query = { category: value };
@@ -21,8 +21,16 @@ const creatMainCategories = (array: string[]) => {
             });
         });
     } catch (e) {
-        return console.error(e.message);
+        return e.message;
     }
 };
 
-export { getAllCategories, creatMainCategories };
+const getCategoryId = async (category: string) => {
+    try {
+        return await CategoryModel.findOne({ category }, { _id: 1 });
+    } catch (e) {
+        return e.message;
+    }
+};
+
+export { getAllCategories, setMainCategories, getCategoryId };

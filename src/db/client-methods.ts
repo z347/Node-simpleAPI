@@ -1,19 +1,19 @@
-import { ClientModel } from '../models/client';
+import { ClientModel } from '../models/client-model';
 
 const getAllClientEmails = async () => {
     try {
         return await ClientModel.find({}, { email: 1 });
     } catch (e) {
-        return console.error(e.message);
+        return e.message;
     }
 };
 
 const createNewClient = async (email: string, password: string) => {
     try {
         const user = new ClientModel({ email, password });
-        await user.save();
+        return await user.save();
     } catch (e) {
-        console.error(e.message);
+        return e.message;
     }
 };
 
@@ -21,7 +21,7 @@ const findOneClientByEmail = async (email: string) => {
     try {
         return await ClientModel.findOne({ email });
     } catch (e) {
-        return console.error(e.message);
+        return e.message;
     }
 };
 

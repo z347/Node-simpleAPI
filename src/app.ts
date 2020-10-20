@@ -15,6 +15,7 @@ import connect from './db/create-connection';
 // Routes
 import clientRouters from './routes/client-routs';
 import categoryRouters from './routes/category-routes';
+import productRouters from './routes/product-routes';
 
 class App {
     public app: Application;
@@ -71,6 +72,7 @@ class App {
     private initializeRoutes() {
         this.app.use('/api/auth', clientRouters);
         this.app.use('/api', categoryRouters);
+        this.app.use('/api', productRouters);
     }
 
     private initializeDatabase() {

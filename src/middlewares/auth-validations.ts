@@ -14,7 +14,7 @@ const registrationValidation: ValidationChain[] = [
                 }
                 return false;
             } catch (e) {
-                return console.error(e.message);
+                return e.message;
             }
         }),
 
@@ -40,7 +40,7 @@ const loginValidation: ValidationChain[] = [
                 }
                 return false;
             } catch (e) {
-                return console.error(e.message);
+                return e.message;
             }
         }),
 
