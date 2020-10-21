@@ -1,4 +1,4 @@
-import { ProductModel } from '../models/product-model';
+import { ProductModel, ProductInterface } from '../models/product-model';
 import { getCategoryId } from './category-methods';
 
 const createNewProduct = async (
@@ -7,7 +7,7 @@ const createNewProduct = async (
     price: number,
     expirationDate: string,
     amount: number
-) => {
+): Promise<ProductInterface | null> => {
     try {
         const categoryId = await getCategoryId(category);
         const newProduct = new ProductModel({ category: categoryId, name, price, expirationDate, amount });
@@ -17,7 +17,7 @@ const createNewProduct = async (
     }
 };
 
-const getOneProduct = async (name: string) => {
+const getOneProduct = async (name: string): Promise<ProductInterface | null> => {
     try {
         return await ProductModel.findOne({ name });
     } catch (e) {
@@ -25,7 +25,7 @@ const getOneProduct = async (name: string) => {
     }
 };
 
-const getAllProducts = async () => {
+const getAllProducts = async (): Promise<ProductInterface[] | null> => {
     try {
         return await ProductModel.find({});
     } catch (e) {
@@ -33,7 +33,7 @@ const getAllProducts = async () => {
     }
 };
 
-const deleteOneProduct = async (name: string) => {
+const deleteOneProduct = async (name: string): Promise<ProductInterface | null> => {
     try {
         return await ProductModel.findOneAndDelete({ name });
     } catch (e) {
@@ -41,10 +41,17 @@ const deleteOneProduct = async (name: string) => {
     }
 };
 
-const getAllProductsByCategory = async (category: string) => {
+const getAllProductsByCategory = async (category: string): Promise<ProductInterface[] | null> => {
     try {
-        const categoryId = await getCategoryId(category);
-        return await ProductModel.find({ category: categoryId });
+        const thisCategory = await getCategoryId(category);
+
+        if (thisCategory !== null) {
+            // eslint-disable-next-line no-underscore-dangle
+            const id: string = thisCategory._id;
+            return await ProductModel.find({ category: id });
+        }
+
+        return null;
     } catch (e) {
         return e.message;
     }
@@ -57,23 +64,30 @@ const updateOneProduct = async (
     newExpirationDate: string,
     newAmount: number,
     newName: string
-) => {
+): Promise<ProductInterface | null> => {
     try {
-        const categoryId = await getCategoryId(newCategory);
-        return await ProductModel.findOneAndUpdate(
-            {
-                name: currentName
-            },
-            {
-                $set: {
-                    category: categoryId,
-                    name: newName,
-                    price: newPrice,
-                    expirationDate: newExpirationDate,
-                    amount: newAmount
+        const thisCategory = await getCategoryId(newCategory);
+
+        if (thisCategory !== null) {
+            // eslint-disable-next-line no-underscore-dangle
+            const id: string = thisCategory._id;
+
+            return await ProductModel.findOneAndUpdate(
+                {
+                    name: currentName
+                },
+                {
+                    $set: {
+                        category: id,
+                        name: newName,
+                        price: newPrice,
+                        expirationDate: newExpirationDate,
+                        amount: newAmount
+                    }
                 }
-            }
-        );
+            );
+        }
+        return null;
     } catch (e) {
         return e.message;
     }

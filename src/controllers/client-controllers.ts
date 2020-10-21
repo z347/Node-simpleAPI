@@ -11,7 +11,7 @@ interface InputsInterface {
     password: ClientInterface['password'];
 }
 
-const getAllClientsController = async (req: Request, res: Response) => {
+const getAllClientsController = async (req: Request, res: Response): Promise<Response> => {
     try {
         const allClients = await getAllClientEmails();
         return res.status(200).json({ message: allClients });
@@ -20,9 +20,13 @@ const getAllClientsController = async (req: Request, res: Response) => {
     }
 };
 
-const registrationController = async (req: Request, res: Response) => {
+const registrationController = async (req: Request, res: Response): Promise<Response> => {
     try {
-        errorsValidationResult(req, res, 400);
+        const errorsResult = validationResult(req);
+
+        if (!errorsResult.isEmpty()) {
+            return errorsValidationResult(req, res, 400);
+        }
 
         const { email, password }: InputsInterface = req.body;
         const encryptPassword = await bCrypt.hash(password, 12);
@@ -33,7 +37,7 @@ const registrationController = async (req: Request, res: Response) => {
     }
 };
 
-const loginController = async (req: Request, res: Response) => {
+const loginController = async (req: Request, res: Response): Promise<Response> => {
     try {
         const errors = validationResult(req);
 

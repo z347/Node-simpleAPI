@@ -1,6 +1,6 @@
-import { ClientModel } from '../models/client-model';
+import { ClientModel, ClientInterface } from '../models/client-model';
 
-const getAllClientEmails = async () => {
+const getAllClientEmails = async (): Promise<ClientInterface[] | null> => {
     try {
         return await ClientModel.find({}, { email: 1 });
     } catch (e) {
@@ -8,7 +8,7 @@ const getAllClientEmails = async () => {
     }
 };
 
-const createNewClient = async (email: string, password: string) => {
+const createNewClient = async (email: string, password: string): Promise<ClientInterface | null> => {
     try {
         const user = new ClientModel({ email, password });
         return await user.save();
@@ -17,7 +17,7 @@ const createNewClient = async (email: string, password: string) => {
     }
 };
 
-const findOneClientByEmail = async (email: string) => {
+const findOneClientByEmail = async (email: string): Promise<ClientInterface | null> => {
     try {
         return await ClientModel.findOne({ email });
     } catch (e) {

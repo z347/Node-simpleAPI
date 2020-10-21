@@ -10,15 +10,15 @@ interface ProductInterface extends Document {
 
 const ProductSchema: Schema = new Schema({
     category: {
-        required: true,
         ref: 'categories',
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        required: true
     },
     name: {
         type: String,
-        required: true,
+        unique: true,
         lowercase: true,
-        unique: true
+        required: true
     },
     price: {
         type: Number,

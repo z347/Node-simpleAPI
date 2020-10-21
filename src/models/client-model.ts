@@ -8,9 +8,9 @@ interface ClientInterface extends Document {
 const ClientSchema: Schema = new Schema({
     email: {
         type: String,
-        required: true,
+        unique: true,
         lowercase: true,
-        unique: true
+        required: true
     },
     password: {
         type: String,

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 
 import { ProductInterface } from '../models/product-model';
 import errorsValidationResult from '../utils/result-express-validator';
@@ -28,9 +29,13 @@ interface UpdateInputsInputsInterface {
     newName: ProductInterface['name'];
 }
 
-const createNewProductController = async (req: Request, res: Response) => {
+const createNewProductController = async (req: Request, res: Response): Promise<Response> => {
     try {
-        errorsValidationResult(req, res, 400);
+        const errorsResult = validationResult(req);
+
+        if (!errorsResult.isEmpty()) {
+            return errorsValidationResult(req, res, 400);
+        }
 
         const { category, name, price, expirationDate, amount }: InputsInterface = req.body;
         await createNewProduct(category, name, price, expirationDate, amount);
@@ -41,9 +46,13 @@ const createNewProductController = async (req: Request, res: Response) => {
     }
 };
 
-const getOneProductController = async (req: Request, res: Response) => {
+const getOneProductController = async (req: Request, res: Response): Promise<Response> => {
     try {
-        errorsValidationResult(req, res, 400);
+        const errorsResult = validationResult(req);
+
+        if (!errorsResult.isEmpty()) {
+            return errorsValidationResult(req, res, 400);
+        }
 
         const { name }: { name: string } = req.body;
         const product = await getOneProduct(name);
@@ -53,7 +62,7 @@ const getOneProductController = async (req: Request, res: Response) => {
     }
 };
 
-const getAllProductsController = async (req: Request, res: Response) => {
+const getAllProductsController = async (req: Request, res: Response): Promise<Response> => {
     try {
         const allProducts = await getAllProducts();
         return res.status(200).json({ products: allProducts });
@@ -62,9 +71,13 @@ const getAllProductsController = async (req: Request, res: Response) => {
     }
 };
 
-const getAllProductsByCategoryController = async (req: Request, res: Response) => {
+const getAllProductsByCategoryController = async (req: Request, res: Response): Promise<Response> => {
     try {
-        errorsValidationResult(req, res, 400);
+        const errorsResult = validationResult(req);
+
+        if (!errorsResult.isEmpty()) {
+            return errorsValidationResult(req, res, 400);
+        }
 
         const { category }: { category: string } = req.body;
         const allProductsByCategory = await getAllProductsByCategory(category);
@@ -74,10 +87,8 @@ const getAllProductsByCategoryController = async (req: Request, res: Response) =
     }
 };
 
-const editOneProductController = async (req: Request, res: Response) => {
+const editOneProductController = async (req: Request, res: Response): Promise<Response> => {
     try {
-        errorsValidationResult(req, res, 400);
-
         const {
             newCategory,
             currentName,
@@ -95,9 +106,13 @@ const editOneProductController = async (req: Request, res: Response) => {
     }
 };
 
-const deleteOneProductController = async (req: Request, res: Response) => {
+const deleteOneProductController = async (req: Request, res: Response): Promise<Response> => {
     try {
-        errorsValidationResult(req, res, 400);
+        const errorsResult = validationResult(req);
+
+        if (!errorsResult.isEmpty()) {
+            return errorsValidationResult(req, res, 400);
+        }
 
         const { name }: { name: string } = req.body;
         await deleteOneProduct(name);

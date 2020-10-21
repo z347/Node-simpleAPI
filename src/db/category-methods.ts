@@ -1,6 +1,6 @@
-import { CategoryModel } from '../models/category-model';
+import { CategoryModel, CategoryInterface } from '../models/category-model';
 
-const getAllCategories = async () => {
+const getAllCategories = async (): Promise<CategoryInterface[] | null> => {
     try {
         return await CategoryModel.find({}, { category: 1 });
     } catch (e) {
@@ -8,14 +8,14 @@ const getAllCategories = async () => {
     }
 };
 
-const setMainCategories = (array: string[]) => {
+const setMainCategories = (categories: string[]): void => {
     try {
-        return array.forEach((value) => {
+        return categories.forEach(async (value) => {
             const query = { category: value };
             const update = { category: value };
             const options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-            CategoryModel.findOneAndUpdate(query, update, options, (error) => {
+            await CategoryModel.findOneAndUpdate(query, update, options, (error) => {
                 if (error) return error;
                 return true;
             });
@@ -25,7 +25,7 @@ const setMainCategories = (array: string[]) => {
     }
 };
 
-const getCategoryId = async (category: string) => {
+const getCategoryId = async (category: string): Promise<CategoryInterface | null> => {
     try {
         return await CategoryModel.findOne({ category }, { _id: 1 });
     } catch (e) {

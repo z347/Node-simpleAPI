@@ -3,7 +3,7 @@ import { getAllCategories, setMainCategories } from '../db/category-methods';
 
 const mainCategories: string[] = ['wine', 'laptops', 'bicycles', 'books', 'phones', 'beer'];
 
-const getAllCategoryController = async (req: Request, res: Response) => {
+const getAllCategoryController = async (req: Request, res: Response): Promise<Response> => {
     try {
         const allCategories = await getAllCategories();
         return res.status(200).json({ message: allCategories });
@@ -12,7 +12,7 @@ const getAllCategoryController = async (req: Request, res: Response) => {
     }
 };
 
-const creatMainCategoriesController = async (req: Request, res: Response) => {
+const creatMainCategoriesController = async (req: Request, res: Response): Promise<Response> => {
     try {
         await setMainCategories(mainCategories);
         return res.status(200).json({ message: 'Success' });
