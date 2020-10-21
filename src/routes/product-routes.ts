@@ -8,7 +8,7 @@ import {
     getOneProductController,
     getAllProductsByCategoryController,
     editOneProductController
-} from '../controllers/product-controllers';
+} from '../controllers';
 
 const router = Router();
 

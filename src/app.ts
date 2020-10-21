@@ -13,9 +13,7 @@ import logger from './utils/winston-loger';
 import connect from './db/create-connection';
 
 // Routes
-import clientRouters from './routes/client-routs';
-import categoryRouters from './routes/category-routes';
-import productRouters from './routes/product-routes';
+import { categoryRouters, productRouters, clientRouters } from './routes';
 
 class App {
     public app: Application;
