@@ -1,5 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
+/* eslint-disable prettier/prettier */
+
 interface ClientInterface extends Document {
     email: string;
     password: string;
@@ -16,7 +18,7 @@ const ClientSchema: Schema = new Schema({
         type: String,
         required: true
     }
-});
+}, { versionKey: false });
 
 const ClientModel = model<ClientInterface>('Client', ClientSchema);
 
