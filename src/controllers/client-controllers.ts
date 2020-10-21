@@ -56,7 +56,7 @@ const loginController = async (req: Request, res: Response): Promise<Response> =
             }
         }
 
-        return res.status(200).json({ message: 'Auth was successful.' });
+        return res.status(202).json({ message: 'Auth was successful.' });
     } catch (e) {
         return res.status(500).json({ errors: e.message });
     }

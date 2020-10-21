@@ -15,7 +15,7 @@ const getAllCategoryController = async (req: Request, res: Response): Promise<Re
 const creatMainCategoriesController = async (req: Request, res: Response): Promise<Response> => {
     try {
         await setMainCategories(mainCategories);
-        return res.status(200).json({ message: 'Success' });
+        return res.status(201).json({ message: 'Success' });
     } catch (e) {
         return res.status(500).json({ errors: e.message });
     }
