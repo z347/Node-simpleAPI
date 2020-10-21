@@ -15,6 +15,9 @@ import connect from './db/create-connection';
 // Routes
 import { categoryRouters, productRouters, clientRouters } from './routes';
 
+// Routes error handler
+import errorHandler from './middlewares/route-error-handler';
+
 class App {
     public app: Application;
     public port: number;
@@ -31,6 +34,7 @@ class App {
         this.forDevelopMode();
         this.initializeMiddlewares();
         this.initializeRoutes();
+        this.errorHandler();
     }
 
     public listen(): void {
@@ -71,6 +75,10 @@ class App {
         this.app.use('/api/auth', clientRouters);
         this.app.use('/api', categoryRouters);
         this.app.use('/api', productRouters);
+    }
+
+    private errorHandler() {
+        this.app.use(errorHandler);
     }
 
     private initializeDatabase() {
